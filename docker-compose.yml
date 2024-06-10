@@ -1,0 +1,14 @@
+version: '3'
+services:
+  petsafe:
+    build: ./petsafe
+    ports:
+      - "3000:3000"
+    depends_on:
+      - firebase
+
+  firebase:
+    build: ./firebase
+    ports:
+      - "3001:3001"
+    command: ["node", "server.js"]  # Ruta actualizada al archivo server.js
