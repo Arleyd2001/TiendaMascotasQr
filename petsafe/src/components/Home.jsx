@@ -1,14 +1,10 @@
 import React, { useState } from "react";
-import { db } from "@/configFirebase";
-import { collection, getDocs } from "firebase/firestore";
-import { useEffect } from "react";
 import Section from "@/components/Section";
 import { Link } from "react-router-dom";
 import Slider from "@/components/Slider";
 
 import dog from "@/assets/mascotas/dog.png";
 import cat from "@/assets/mascotas/cat.png";
-import mouse from "@/assets/mascotas/mouse.png";
 
 const Home = () => {
   const productGallery = [
@@ -28,27 +24,7 @@ const Home = () => {
       image: cat,
       link: "/cat",
     },
-   // {
-     // id: 3,
-      //name: "Mouse",
-     // title: "FOR RODENTS",
-     // subtitle: "description",
-      //cop: "COP",
-     // usd: "USD",
-     // image: mouse,
-     // link: "/roudents",
-    //},
   ];
-
-  // // const [data, setData] = useState([]);
-  // const getFiles = async () => {
-  //   const x = [];
-
-  //  };
-
-  // useEffect(() => {
-  //   getFiles();
-  // }, []);
 
   return (
     <>
@@ -70,8 +46,6 @@ const Home = () => {
               <div className="p-4">
                 <h2 className="text-xl font-bold mb-2">{product.title}</h2>
                 <p className="text-gray-700 mb-2">{product.subtitle}</p>
-                <p className="text-gray-900 font-bold">{product.cop}</p>
-                <p className="text-gray-900 font-bold">{product.usd}</p>
               </div>
               <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 bg-black bg-opacity-50">
                 <Link to={product.link}>

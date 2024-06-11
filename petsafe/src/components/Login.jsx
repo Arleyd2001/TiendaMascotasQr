@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase"; // Importamos las instancias de Firebase directamente desde configFirebase
+import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "./Loader";
-
 import Reset from "./Reset";
 
 const Login = () => {
@@ -12,7 +11,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [reset, setReset] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
   const redirect = useNavigate();
 
   const iniciarSesion = async (e) => {
@@ -33,17 +31,11 @@ const Login = () => {
   return (
     <>
       {isLoading ? <Loader /> : ""}
-      <section
-        className={`flex flex-col w-full gap-8 lg:flex-row pt-20 md:px-20 px-4 ${
-          reset ? "hidden" : ""
-        }`}
-      >
+      <section className={`flex flex-col w-full gap-8 lg:flex-row pt-20 md:px-20 px-4 ${reset ? "hidden" : ""}`}>
         <div className="flex items-center justify-center lg:w-1/2 ">
           <img src="/pets.png" className="w-[150px] lg:w-[300px] " alt="Petsafe Logo" />
         </div>
-
         <div className="divider lg:divider-horizontal" />
-
         <div className="flex items-center justify-center lg:w-1/2">
           <form className="flex flex-col gap-4 w-[300px] lg:w-[500px] items-center shadow-lg shadow-gray-500 rounded-xl p-6 ">
             <h1 className="w-full text-center font-bold text-2xl ">
