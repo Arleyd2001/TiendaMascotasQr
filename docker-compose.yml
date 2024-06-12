@@ -11,4 +11,4 @@ services:
     build: ./firebase
     ports:
       - "3001:3001"
-    command: ["node", "server.js"]  # Ruta actualizada al archivo server.js
+    command: ["node", "server.js"]  

@@ -2,7 +2,7 @@ import express from 'express';
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send('Hello from Firebase Service');
+  res.send('');
 });
 
 app.listen(3001, () => {
