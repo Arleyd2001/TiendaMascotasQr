@@ -1,16 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../configFirebase";
 import Section from "@/components/Section";
 import QRCode from "qrcode.react";
 import { toast } from "react-toastify";
-
-const generateId = () => {
-  const timestamp = Date.now().toString(36);
-  const randomPart = Math.random().toString(36).substr(2, 5);
-  return `${timestamp}-${randomPart}`;
-};
 
 const EditarMascota = () => {
   const { id } = useParams(); // Obtener el ID de la mascota de los parámetros de la URL
@@ -24,22 +16,30 @@ const EditarMascota = () => {
   const [qrLink, setQrLink] = useState("");
 
   useEffect(() => {
+    // Simulación de carga de datos de la mascota desde un servicio o API
     const obtenerMascota = async () => {
       try {
-        const mascotaDocRef = doc(collection(db, "Mascotas"), id);
-        const mascotaSnap = await getDoc(mascotaDocRef);
-        if (mascotaSnap.exists()) {
-          const data = mascotaSnap.data();
-          setNombreDueño(data.NombreDueño || "");
-          setNombreMascota(data.NombreMascota || "");
-          setDireccion(data.Direccion || "");
-          setRaza(data.Raza || "");
-          setDescripcion(data.Descripcion || "");
-          setCorreo(data.Correo || "");
-          setTelefono(data.Telefono || "");
-          generarQR(data.id);
-          
-        }
+        // Aquí normalmente se haría una solicitud al backend para obtener los datos de la mascota por su ID
+        // En este ejemplo, los datos se inicializan de manera estática
+        const data = {
+          NombreDueño: "Nombre del Dueño",
+          NombreMascota: "Nombre de la Mascota",
+          Direccion: "Dirección",
+          Raza: "Raza",
+          Descripcion: "Descripción",
+          Correo: "correo@example.com",
+          Telefono: "123456789",
+          id: id // Este sería el ID de la mascota obtenido de los parámetros de la URL
+        };
+        
+        setNombreDueño(data.NombreDueño || "");
+        setNombreMascota(data.NombreMascota || "");
+        setDireccion(data.Direccion || "");
+        setRaza(data.Raza || "");
+        setDescripcion(data.Descripcion || "");
+        setCorreo(data.Correo || "");
+        setTelefono(data.Telefono || "");
+        generarQR(data.id);
       } catch (error) {
         console.error("Error al obtener la mascota: ", error);
       }
@@ -49,25 +49,17 @@ const EditarMascota = () => {
   }, [id]);
 
   const generarQR = (id) => {
-    setQrLink(`https://nbl6b2l5-5173.use2.devtunnels.ms/Mascotas/${id}`); // Actualiza con tu URL base
+    // Simulación de generación de enlace QR basado en el ID de la mascota
+    setQrLink(`https://example.com/mascotas/${id}`); // URL de ejemplo para el QR
   };
 
   const handleEditarMascota = async (e) => {
     e.preventDefault();
 
     try {
-      const mascotaDocRef = doc(collection(db, "Mascotas"), id);
-      await updateDoc(mascotaDocRef, {
-        NombreDueño,
-        NombreMascota,
-        Direccion,
-        Raza,
-        Descripcion,
-        Correo,
-        Telefono
-      });
-      toast.success("Procesando Solicitud...");
-      // Aquí podrías redirigir al usuario a otra página si lo deseas
+      // Aquí normalmente se enviaría una solicitud al backend para actualizar los datos de la mascota
+      toast.success("Guardando cambios...");
+      // En este ejemplo, se simula una actualización exitosa
     } catch (error) {
       console.error("Error al actualizar la mascota: ", error);
     }

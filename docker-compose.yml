@@ -11,4 +11,17 @@ services:
     build: ./firebase
     ports:
       - "3001:3001"
-    command: ["node", "server.js"]  
+    command: ["node", "server.js"]
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+
+volumes:
+  jenkins_home:

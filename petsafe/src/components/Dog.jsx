@@ -19,7 +19,7 @@ const Dog = () => {
       title: "Collar Con Dije QR Perro",
       description: "Asegura la protección de tu mascota con nuestro Collar con Dije QR para Perro. Este collar elegante y resistente incluye un dije QR que, al escanearlo, muestra la información de contacto del dueño. Ideal para identificar a tu perro rápidamente en caso de que se pierda.",
       price: "20.000",
-      link: "https://wa.me/3046221615?text=Hola,%20estoy%20interesado%20en%20comprar%20este%20producto:%20Collar%20Con%20Dije%20QR%20Perro.",
+      link: "",
     },
     {
       id: 2,
@@ -27,7 +27,7 @@ const Dog = () => {
       title: "Juguete masticable para perro",
       description: "Nuestro juguete masticable para perros está hecho de caucho duradero, diseñado para soportar mordidas fuertes. Su textura especial ayuda a limpiar los dientes y masajear las encías, promoviendo una buena salud dental. ",
       price: "35.000",
-      link: "https://wa.me/3046221615?text=Hola,%20estoy%20interesado%20en%20comprar%20este%20producto:%20Juguete%20masticable%20para%20perro.",
+      link: "",
     },
     {
       id: 3,
@@ -35,7 +35,7 @@ const Dog = () => {
       title: "Juguete estimulante para perro",
       description: "Mantén a tu perro activo y mentalmente estimulado con nuestra Pelota Estimulante para Perro. Esta pelota resistente se puede rellenar con golosinas o croquetas, proporcionando un desafío divertido y recompensante.",
       price: "17.000",
-      link: "https://wa.me/3046221615?text=Hola,%20estoy%20interesado%20en%20comprar%20este%20producto:%20Juguete%20estimulante%20para%20perro.",
+      link: "",
     },
     {
       id: 4,
@@ -43,7 +43,7 @@ const Dog = () => {
       title: "Alimento Para Perro Adulto Dog Chow 22.7 Kg",
       description: "La selección de un alimento adecuado para tu mascota es muy importante para garantizar su crecimiento, desarrollo y salud. Con esta opción de Dog Chow podrás cubrir las necesidades nutricionales y energéticas de tu perro.",
       price: "211.000",
-      link: "https://wa.me/3046221615?text=Hola,%20estoy%20interesado%20en%20comprar%20este%20producto:%20Alimento%20Para%20Perro%20Adulto%20Dog%20Chow%2022.7%20Kg.",
+      link: "",
     },
     {
       id: 5,
@@ -51,7 +51,7 @@ const Dog = () => {
       title: "Alimento para perro Proplan 3 Kg ",
       description: "Dale a tu perro una alimentación premium con las Croquetas Pro Plan. Formuladas con ingredientes de alta calidad, estas croquetas ofrecen una nutrición completa y equilibrada para promover una salud óptima.",
       price: "130.000 ",
-      link: "https://wa.me/3046221615?text=Hola,%20estoy%20interesado%20en%20comprar%20este%20producto:%20Alimento%20para%20perro%20Proplan%203%20Kg.",
+      link: "",
     },
     {
       id: 6,
@@ -59,7 +59,7 @@ const Dog = () => {
       title: "Alimento para perro Chunky 9Kg",
       description: "Proporciona a tu perro la mejor nutrición con el Alimento para Perro Chunky. Hecho con ingredientes de alta calidad, este alimento balanceado ofrece una dieta completa y deliciosa para tu mascota.  ",
       price: "76.000",
-      link: "https://wa.me/3046221615?text=Hola,%20estoy%20interesado%20en%20comprar%20este%20producto:%20Alimento%20para%20perro%20Chunky%209Kg.",
+      link: "",
     },
     {
       id: 7,
@@ -67,7 +67,7 @@ const Dog = () => {
       title: "Alimento para perro Pedigree",
       description: "Dale a tu perro una dieta equilibrada y sabrosa con el Alimento para Perro Pedigree. Formulado con ingredientes de alta calidad, Pedigree ofrece una nutrición completa con todas las vitaminas, minerales y proteínas esenciales.",
       price: "35.000",
-      link: "https://wa.me/3046221615?text=Hola,%20estoy%20interesado%20en%20comprar%20este%20producto:%20Alimento%20para%20perro%20Pedigree.",
+      link: "",
     },
     {
       id: 8,
@@ -75,7 +75,7 @@ const Dog = () => {
       title: "Casa para Perro",
       description: "Ofrece a tu mascota un refugio cómodo y seguro con nuestra Casa para Perro. Fabricada con materiales duraderos y resistentes a la intemperie, esta casa proporciona un espacio acogedor para tu perro en cualquier estación del año. ",
       price: "170.000",
-      link: "https://wa.me/3046221615?text=Hola,%20estoy%20interesado%20en%20comprar%20este%20producto:%20Casa%20para%20Perro.",
+      link: "",
     },
   ];
   const handleComprar = (link) => {

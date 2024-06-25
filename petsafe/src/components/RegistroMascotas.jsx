@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import QRCode from "qrcode.react";
 import { collection, doc, setDoc } from "firebase/firestore";
-import { db } from "../configFirebase";
+import { db } from "../firebase";
 import Section from "@/components/Section";
 
 const generateId = () => {
