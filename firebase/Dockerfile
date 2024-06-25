@@ -10,7 +10,8 @@ COPY package*.json ./
 # Instala las dependencias del proyecto
 RUN npm install
 
-
+# Copia el resto del código de la aplicación
+COPY . .
 
 # Exponer el puerto de la aplicación
 EXPOSE 3001

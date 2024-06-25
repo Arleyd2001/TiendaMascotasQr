@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../configFirebase";
 import Section from "@/components/Section";
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate en lugar de useHistory
+import { auth } from "../firebase"; 
 
 const ListaMascotas = () => {
   const [mascotas, setMascotas] = useState([]);

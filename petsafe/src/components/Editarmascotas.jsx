@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../configFirebase";
 import Section from "@/components/Section";
 import QRCode from "qrcode.react";
 import { toast } from "react-toastify";
+import { auth } from "../firebase"; 
 
 const generateId = () => {
   const timestamp = Date.now().toString(36);

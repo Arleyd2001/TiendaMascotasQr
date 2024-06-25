@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "@/configFirebase";
+import { db } from "../firebase";
 import { MdLibraryAdd } from "react-icons/md";
 import { toast } from "react-toastify";
-import { storage } from "@/configFirebase";
+import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
 import Loader from "@/components/Loader";

@@ -1,38 +1,48 @@
-import Register from "@/components/Register";
-import Login from "@/components/Login";
-import Home from "@/components/Home";
-import Contact from "@/components/Contact";
-import Dog from "@/components/Dog";
-import Cat from "@/components/Cat";
-import Roudents from "@/components/Roudents";
-import UserProfile from "@/components/UserProfile";
-import Navbar from "@/components/Navbar";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { auth } from "@/configFirebase";
-import { onAuthStateChanged } from "firebase/auth";
-import Admin from "@/components/Admin";
-import EditarMascota from "@/components/Editarmascotas";
-import ListaMascotas from "@/components/ListaMascotas";
-import RegistroMascotas from "@/components/RegistroMascotas";
-
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Navbar from '@/components/Navbar';
+import Register from '../src/components/Register';
+import Login from '@/components/Login';
+import Home from '@/components/Home';
+import Contact from '@/components/Contact';
+import Dog from '@/components/Dog';
+import Cat from '@/components/Cat';
+import Roudents from '@/components/Roudents';
+import UserProfile from '@/components/UserProfile';
+import Admin from '@/components/Admin';
+import EditarMascota from '@/components/Editarmascotas';
+import ListaMascotas from '@/components/ListaMascotas';
+import RegistroMascotas from '@/components/RegistroMascotas';
+import { waitForFirebaseInit } from '../src/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const App = () => {
-  const [user, setUser] = useState(false);
-  const [email, setEmail] = useState("");
+  const [user, setUser] = useState(null);
+  const [email, setEmail] = useState('');
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log(user);
-        setUser(true);
-        setEmail(user.email);
-      } else {
-        setEmail("");
-      }
-    });
+    const initializeFirebase = async () => {
+      const { auth: initializedAuth } = await waitForFirebaseInit();
+      onAuthStateChanged(initializedAuth, (user) => {
+        if (user) {
+          console.log('User is signed in:', user);
+          setUser(user);
+          setEmail(user.email);
+        } else {
+          console.log('User is signed out');
+          setUser(null);
+          setEmail('');
+        }
+      });
+    };
+
+    initializeFirebase();
+
+    return () => {
+      // Aquí puedes limpiar cualquier suscripción o recurso si es necesario
+    };
   }, []);
 
   return (
@@ -49,11 +59,11 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/Financing" element={<RegistroMascotas  />} />
+          <Route path="/Financing" element={<RegistroMascotas />} />
           <Route path="/user-profile" element={<UserProfile />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/ListaMascotas" element={<ListaMascotas />} />
-         <Route exact path="/Mascotas/:id" element={<UserProfile />} />
+          <Route exact path="/Mascotas/:id" element={<UserProfile />} />
           <Route path="/RegistroMascotas" element={<RegistroMascotas />} />
           <Route path="/editar/:id" element={<EditarMascota />} />
         </Routes>
