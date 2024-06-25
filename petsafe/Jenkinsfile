@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        FIREBASE_API_KEY = credentials('firebase-api-key') // Asegúrate de definir esta credencial en Jenkins
+        FIREBASE_API_KEY = credentials('AIzaSyB2B_0uZlrCBRNi0g-_ptS_PDz3vtP_jHU') // Asegúrate de definir esta credencial en Jenkins
     }
     
     stages {
