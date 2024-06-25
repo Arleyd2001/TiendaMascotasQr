@@ -1,9 +1,8 @@
-{
+pipeline {
     agent any
     
     environment {
-        FIREBASE_PROJECT_ID = 'AIzaSyB2B_0uZlrCBRNi0g-_ptS_PDz3vtP_jHU'
-        FIREBASE_API_KEY = credentials('1:232783336193:web:104bc1303aa19087484100')
+        FIREBASE_API_KEY = credentials('firebase-api-key') // Asegúrate de definir esta credencial en Jenkins
     }
     
     stages {
@@ -11,11 +10,15 @@
             steps {
                 script {
                     try {
-                        // Verificar la conexión a Firebase Firestore
+                        // Instalar herramientas de Firebase globalmente
                         sh "npm install -g firebase-tools"
-                        sh "firebase login:ci --no-localhost --token $FIREBASE_API_KEY"
-                        sh "firebase projects:list --token $FIREBASE_API_KEY"
-                        sh "firebase firestore:list --token $FIREBASE_API_KEY"
+                        
+                        // Autenticación con Firebase utilizando el token API key
+                        sh "firebase login:ci --no-localhost --token ${FIREBASE_API_KEY}"
+                        
+                        // Listar proyectos y colecciones en Firebase Firestore
+                        sh "firebase projects:list --token ${FIREBASE_API_KEY}"
+                        sh "firebase firestore:list --token ${FIREBASE_API_KEY}"
                     } catch (Exception e) {
                         error "Error al verificar la conexión a Firebase Firestore: ${e.message}"
                     }
@@ -27,11 +30,16 @@
             steps {
                 script {
                     try {
-                        // Obtener las primeras tres mascotas registradas desde Firebase Firestore
+                        // Instalación de dependencias y construcción de la aplicación React
                         sh "npm install"
                         sh "npm run build"
-                        def mascotas = sh(script: 'node -e "require(\'petsafe\src\components\ListaMascotas.jsx')"', returnStdout: true).trim()
-                        echo "Primeras tres mascotas registradas: ${mascotas}"
+                        
+                        // Ejemplo de cómo obtener datos directamente desde Firestore
+                        def mascotasData = sh(script: """
+                            firebase firestore:run query "Mascotas" --limit 3 --token ${FIREBASE_API_KEY}
+                        """, returnStdout: true).trim()
+                        
+                        echo "Primeras tres mascotas registradas: ${mascotasData}"
                     } catch (Exception e) {
                         error "Error al obtener las primeras tres mascotas: ${e.message}"
                     }

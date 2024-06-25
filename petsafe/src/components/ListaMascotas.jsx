@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import Section from "@/components/Section";
+import { waitForFirebaseInit } from "../firebase";
+import Section from "../components/Section";
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate en lugar de useHistory
-import { auth } from "../firebase"; 
 
 const ListaMascotas = () => {
   const [mascotas, setMascotas] = useState([]);
@@ -11,8 +11,12 @@ const ListaMascotas = () => {
   useEffect(() => {
     const obtenerMascotas = async () => {
       try {
+        const { db } = await waitForFirebaseInit(); // Espera a que Firebase esté inicializado
         const querySnapshot = await getDocs(collection(db, "Mascotas"));
-        const mascotasData = querySnapshot.docs.map((doc) => doc.data());
+        const mascotasData = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data()
+        }));
         setMascotas(mascotasData);
       } catch (error) {
         console.error("Error al obtener las mascotas: ", error);
