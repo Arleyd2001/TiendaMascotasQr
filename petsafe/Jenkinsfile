@@ -10,6 +10,9 @@ pipeline {
             steps {
                 script {
                     try {
+                        // Asegúrate de que npm esté disponible
+                        sh "which npm"
+                        
                         // Instalar herramientas de Firebase globalmente
                         sh "npm install -g firebase-tools"
                         
