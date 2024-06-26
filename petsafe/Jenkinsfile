@@ -1,39 +1,37 @@
 pipeline {
     agent any
+
     environment {
         NODEJS_HOME = tool name: 'NodeJS', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
+        PATH = "${NODEJS_HOME}/bin:${env.PATH}"
     }
+
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
+
         stage('Install dependencies') {
             steps {
                 script {
-                    // Configura el entorno Node.js
-                    def nodejsHome = tool name: 'NodeJS', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
-                    env.PATH = "${nodejsHome}/bin:${env.PATH}"
+                    // Instalar dependencias usando npm
+                    sh 'npm install'
                 }
-                // Instala las dependencias
-                sh 'npm install'
             }
         }
+
         stage('Run tests') {
             steps {
                 sh 'npm test'
             }
         }
     }
+
     post {
         always {
             junit '**/test-results.xml'
-        }
-        failure {
-            mail to: 'your-email@example.com',
-                 subject: "Build failed in Jenkins: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                 body: "Check console output at ${env.BUILD_URL} to view the results."
         }
     }
 }
