@@ -1,36 +1,24 @@
 pipeline {
     agent any
-
-    stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
-        stage('Install dependencies') {
-            steps {
-                script {
-                    // Instalar dependencias usando npm
-                    sh 'npm install'
-                }
-            }
-        }
-
-        stage('Run tests') {
-            steps {
-                script {
-                    // Ejecutar pruebas
-                    sh 'npm test'
-                }
-            }
-        }
-    }
-
-    post {
-        always {
-            junit '**/test-results.xml'
-        }
-    }
     
+    stages {
+        stage('Hola Mundo') {
+            steps {
+                script {
+                    echo '¡Hola Mundo!'
+                }
+            }
+        }
+        
+        stage('Operación Matemática') {
+            steps {
+                script {
+                    def num1 = 10
+                    def num2 = 5
+                    def resultado = num1 + num2
+                    echo "La suma de ${num1} y ${num2} es ${resultado}"
+                }
+            }
+        }
+    }
 }
