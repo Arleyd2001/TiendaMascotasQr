@@ -10,11 +10,12 @@ pipeline {
             steps {
                 script {
                     try {
-                        // Asegúrate de que npm esté disponible
+                        // Añade debugging para verificar la ruta de npm
+                        sh "echo 'PATH: ${env.PATH}'"
                         sh "which npm"
                         
-                        // Instalar herramientas de Firebase globalmente
-                        sh "npm install -g firebase-tools"
+                        // Instala herramientas de Firebase globalmente
+                        sh "npm install firebase"
                         
                         // Autenticación con Firebase utilizando el token API key
                         sh "firebase login:ci --no-localhost --token ${FIREBASE_API_KEY}"
@@ -53,7 +54,8 @@ pipeline {
     
     post {
         always {
-            echo "Pipeline finalizado."
+            echo "Pipeline Terminado."
         }
     }
+
 }
