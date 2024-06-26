@@ -1,38 +1,45 @@
 pipeline {
     agent any
-    
+
     stages {
-        stage('Clonar Repositorio') {
+        stage('Checkout SCM') {
             steps {
-                git 'https://github.com/Arleyd2001/TiendaMascotasQr.git'
+                checkout scm
             }
         }
-        
+
         stage('Instalar Dependencias') {
             steps {
-                sh 'npm install'
+                script {
+                    def npmHome = tool name: 'NodeJS', type: 'NodeJSInstallation'
+                    env.PATH = "${npmHome}/bin:${env.PATH}"
+                    sh 'npm install'
+                }
             }
         }
-        
+
         stage('Ejecutar Pruebas') {
             steps {
-                sh 'npm test'
-            }
-            
-            post {
-                always {
-                    junit 'reports/**/*.xml'
+                script {
+                    def npmHome = tool name: 'NodeJS', type: 'NodeJSInstallation'
+                    env.PATH = "${npmHome}/bin:${env.PATH}"
+                    sh 'npm test'
                 }
             }
         }
     }
-    
+
     post {
-        success {
-            echo 'Pruebas completadas satisfactoriamente!'
+        always {
+            junit '**/coverage/junit.xml'
         }
+
+        success {
+            echo 'Las pruebas pasaron exitosamente.'
+        }
+
         failure {
-            echo 'Pruebas fallaron. Revisar logs para más detalles.'
+            echo 'Las pruebas fallaron. Revisar logs para más detalles.'
         }
     }
 }
