@@ -1,45 +1,33 @@
 pipeline {
     agent any
-
     stages {
-        stage('Checkout SCM') {
-            steps {
-                checkout scm
-            }
-        }
-
-        stage('Instalar Dependencias') {
+        stage('Install dependencies') {
             steps {
                 script {
-                    def npmHome = tool name: 'NodeJS', type: 'NodeJSInstallation'
-                    env.PATH = "${npmHome}/bin:${env.PATH}"
+                    // Instalar dependencias
                     sh 'npm install'
                 }
             }
         }
-
-        stage('Ejecutar Pruebas') {
+        stage('Run tests') {
             steps {
                 script {
-                    def npmHome = tool name: 'NodeJS', type: 'NodeJSInstallation'
-                    env.PATH = "${npmHome}/bin:${env.PATH}"
+                    // Ejecutar pruebas unitarias
                     sh 'npm test'
                 }
             }
         }
     }
-
     post {
         always {
-            junit '**/coverage/junit.xml'
+            // Publicar resultados de pruebas, si es necesario
+            junit 'path/to/test-results.xml'
         }
-
-        success {
-            echo 'Las pruebas pasaron exitosamente.'
-        }
-
         failure {
-            echo 'Las pruebas fallaron. Revisar logs para más detalles.'
+            // Notificaciones en caso de fallo
+            mail to: 'arleydmeneses@gmail.com',
+                 subject: "Build failed in Jenkins: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                 body: "Check console output at ${env.BUILD_URL} to view the results."
         }
     }
 }
