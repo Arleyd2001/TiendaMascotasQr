@@ -1,9 +1,12 @@
 pipeline {
     agent any
-    environment {
-        NODEJS_HOME = tool name: 'NodeJS', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
-    }
-    stages {
+
+ tools {
+    nodejs "node" 
+ }
+
+
+     stages {
         stage('Checkout') {
             steps {
                 checkout scm
@@ -36,4 +39,6 @@ pipeline {
                  body: "Check console output at ${env.BUILD_URL} to view the results."
         }
     }
-}
+
+    }
+
