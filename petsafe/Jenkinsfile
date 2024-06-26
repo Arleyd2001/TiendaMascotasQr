@@ -1,22 +1,38 @@
 pipeline {
     agent any
     
-    environment {
-        FIREBASE_PROJECT_ID = 'petsafe-a2cff' // Define tu proyecto Firebase
-    }
-
     stages {
-        stage('Verificar conexión con Firebase') {
+        stage('Clonar Repositorio') {
             steps {
-                script {
-                    def result = sh(script: "firebase projects:list", returnStdout: true).trim()
-                    if (result.contains(FIREBASE_PROJECT_ID)) {
-                        println "Conexión exitosa con Firebase"
-                    } else {
-                        error "Error: No se pudo conectar con Firebase"
-                    }
+                git 'https://github.com/Arleyd2001/TiendaMascotasQr.git'
+            }
+        }
+        
+        stage('Instalar Dependencias') {
+            steps {
+                sh 'npm install'
+            }
+        }
+        
+        stage('Ejecutar Pruebas') {
+            steps {
+                sh 'npm test'
+            }
+            
+            post {
+                always {
+                    junit 'reports/**/*.xml'
                 }
             }
+        }
+    }
+    
+    post {
+        success {
+            echo 'Pruebas completadas satisfactoriamente!'
+        }
+        failure {
+            echo 'Pruebas fallaron. Revisar logs para más detalles.'
         }
     }
 }
